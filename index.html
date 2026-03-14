@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Максимальная громкость и цикл</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        img {
+            max-width: 300px;
+            max-height: 300px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 
+            КАК НАЗВАТЬ ФАЙЛЫ:
+            1. Картинку положите в ту же папку, где лежит этот HTML-файл, 
+               и назовите её "image.jpg" (или image.png/image.gif)
+            2. Звуковой файл положите туда же и назовите "sound.mp3"
+            
+            Если хотите другие названия, просто измените пути ниже 
+            в тегах <img> и <source>.
+        -->
+        
+        <img src="image.jpg" alt="Картинка" id="myImage">
+        
+        <audio id="myAudio" loop>
+            <!-- Убедитесь, что файл sound.mp3 лежит рядом с этим html -->
+            <source src="sound.mp3" type="audio/mpeg">
+            Ваш браузер не поддерживает audio тег.
+        </audio>
+        
+        <br>
+        <button onclick="maxVolumeAndPlay()">Врубить на всю!</button>
+    </div>
+
+    <script>
+        function maxVolumeAndPlay() {
+            // Получаем элементы
+            const audio = document.getElementById('myAudio');
+            
+            // Устанавливаем громкость на максимум (1.0)
+            audio.volume = 1.0;
+            
+            // Включаем звук (если уже играет, начнет с начала)
+            audio.play();
+            
+            // Для надежности можно добавить обработчик ошибок,
+            // если вдруг файл не найден
+            audio.play().catch(e => {
+                console.log("Автовоспроизведение заблокировано браузером или файл не найден.");
+                alert("Нажмите на страницу, чтобы разрешить звук, или проверьте путь к файлу sound.mp3");
+            });
+        }
+    </script>
+</body>
+</html>
